@@ -1,16 +1,16 @@
 import './style.css'
 
-import { AxesHelper, Clock } from 'three'
+import { AxesHelper, Clock, Material } from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import { gui } from './gui'
+import gsap from 'gsap'
+
 import { scene } from './scene'
 import { camera } from './camera'
 import { canvas, renderer } from './renderer'
-import { box } from './shapes'
+import { getCustom } from './shapes'
 import { size, resize } from './renderer'
 import './window'
-// import gsap from 'gsap';
-let theCamera = camera;
-
 const orbitControl = new OrbitControls(camera, canvas)
 orbitControl.enableDamping = true;
 orbitControl.update()
@@ -23,38 +23,44 @@ window.addEventListener('resize', () => {
 	resize();
 })
 
+const { mesh: custom } = getCustom();
+console.log(custom.material.color.getHex());
 
-window.addEventListener('keydown', function (event) {
-	if (event.code == 'KeyW') {
-		camera.position.z -= 0.05
-	}
-	if (event.code == 'KeyS') {
-		camera.position.z += 0.05
-	}
-	if (event.code == 'KeyA') {
-		camera.position.x -= 0.05
-	}
-	if (event.code == 'KeyD') {
-		camera.position.x += 0.05
-	}
-})
+const customParams = {
+	spin () {
+		gsap.to(custom.rotation, {
+			y: function (index, target) {
+				return target.y + (Math.PI * 2);
+			}, duration: 3
+		})
+		console.log('spin')
+	},
+	color: custom.material.color.getHex()
+}
+
 
 window.addEventListener('mousemove', (e) => {
 	cursor.x = e.clientX / size.width - 0.5
 	cursor.y = e.clientY / size.height - 0.5
 })
 
-const clock = new Clock();
+scene.add(custom)
+gui.add(custom.position, 'x').min(-3).max(3).step(0.01);
+gui.add(custom.position, 'y').min(-3).max(3).step(0.01);
+gui.add(custom.position, 'z').min(-3).max(3).step(0.01);
 
-const ah = new AxesHelper();
-scene.add(ah);
-scene.add(box);
-camera.position.z += 3
+gui.add(custom, 'visible')
+gui.add(custom.material, 'wireframe')
+gui.addColor(customParams, 'color').onChange((v) => {
+	custom.material.setValues({ color: v })
+})
+gui.add(customParams, 'spin');
+camera.position.z += 40
 
 function animate () {
 	orbitControl.update()
 	requestAnimationFrame(animate)
-	renderer.render(scene, theCamera);
+	renderer.render(scene, camera);
 }
 
 animate()
