@@ -1,3 +1,4 @@
-import {PerspectiveCamera} from 'three'
+import { OrthographicCamera, PerspectiveCamera } from 'three'
+import { size } from './renderer'
 
-export const camera = new PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+export const camera = new PerspectiveCamera(45, size.getRatio(), 0.1, 1000);
