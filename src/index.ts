@@ -1,19 +1,32 @@
 import './style.css'
 
-import { AxesHelper, Clock, Material } from 'three'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
-import { gui } from './gui'
+import { AxesHelper, Clock, Mesh, MeshBasicMaterial, MeshMatcapMaterial, TorusBufferGeometry } from 'three'
+
 import gsap from 'gsap'
 
 import { scene } from './scene'
 import { camera } from './camera'
 import { canvas, renderer } from './renderer'
-import { getCustom } from './shapes'
+import { loadText } from './shapes'
 import { size, resize } from './renderer'
 import './window'
-const orbitControl = new OrbitControls(camera, canvas)
-orbitControl.enableDamping = true;
-orbitControl.update()
+import { acidMaterial, orangeMatcap, greenMaterial } from './materials'
+import { setHemiLight, setPointLight } from './light'
+import { setOrbitControls } from './helpers'
+
+const axesHelper = new AxesHelper();
+// scene.add(axesHelper)
+
+setPointLight(scene);
+setHemiLight(scene);
+// const OC = setOrbitControls(camera, canvas);
+
+loadText('JMEB', greenMaterial).then(mesh => {
+	mesh.position.z = -20;
+	mesh.scale.set(20,20,3);
+	scene.add(mesh)
+})
+
 const cursor = {
 	x: 0,
 	y: 0,
@@ -23,42 +36,42 @@ window.addEventListener('resize', () => {
 	resize();
 })
 
-const { mesh: custom } = getCustom();
-console.log(custom.material.color.getHex());
-
-const customParams = {
-	spin () {
-		gsap.to(custom.rotation, {
-			y: function (index, target) {
-				return target.y + (Math.PI * 2);
-			}, duration: 3
-		})
-		console.log('spin')
-	},
-	color: custom.material.color.getHex()
-}
-
+camera.position.z += 10
 
 window.addEventListener('mousemove', (e) => {
 	cursor.x = e.clientX / size.width - 0.5
 	cursor.y = e.clientY / size.height - 0.5
 })
 
-scene.add(custom)
-gui.add(custom.position, 'x').min(-3).max(3).step(0.01);
-gui.add(custom.position, 'y').min(-3).max(3).step(0.01);
-gui.add(custom.position, 'z').min(-3).max(3).step(0.01);
+const geometry = new TorusBufferGeometry(1, .6, 30, 30)
+const material = acidMaterial
+const donuts: Mesh[] = [];
+for (let i = 0; i < 200; i++) {
+	const rand = Math.random()
+	const donut = new Mesh(geometry, rand > .5 ? (rand < .65  ? greenMaterial : orangeMatcap) : material )
+	donut.position.x = (Math.random() - .5) * 20;
+	donut.position.y = (Math.random() - .5) * 30;
+	donut.position.z = (Math.random() - .5) * 15;
+	donut.rotation.y = (Math.random() - .5) * Math.PI
+	donut.rotation.x = (Math.random() - .5) * Math.PI
+	const scale = Math.random();
+	donut.scale.set(scale, scale, scale);
+	scene.add(donut)
+	donuts.push(donut);
+}
 
-gui.add(custom, 'visible')
-gui.add(custom.material, 'wireframe')
-gui.addColor(customParams, 'color').onChange((v) => {
-	custom.material.setValues({ color: v })
-})
-gui.add(customParams, 'spin');
-camera.position.z += 40
+const clock = new Clock()
 
 function animate () {
-	orbitControl.update()
+	camera.rotation.y = cursor.x;
+	// OC.update()
+	donuts.forEach(donut => {
+		if(donut.position.y < - 15) return  donut.position.y = 15;
+		donut.position.y -= .1
+		donut.rotation.y -= .02
+		donut.rotation.x -= .02
+		
+	})
 	requestAnimationFrame(animate)
 	renderer.render(scene, camera);
 }
