@@ -160,7 +160,7 @@ export function makeTorus (type: 'gold' | 'ice') {
 }
 
 
-export const loadText = (text: string, material: Material): Promise<Mesh> => {
+export const loadText = (text: string, size: number, material: Material): Promise<Mesh> => {
 	return new Promise((res) => {
 
 		getFont.then((font: Font) => {
@@ -168,7 +168,7 @@ export const loadText = (text: string, material: Material): Promise<Mesh> => {
 			const bThickness = 0.03
 
 			const textGeometry = new TextBufferGeometry(text, {
-				size: .5,
+				size: size,
 				height: .2,
 				font,
 				bevelThickness: .03,

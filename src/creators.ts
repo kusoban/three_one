@@ -10,11 +10,11 @@ export function generateDonuts (count: number) {
 		const randR = Math.floor(random(0, 255))
 		const randG = Math.floor(random(0, 255))
 		const randB = Math.floor(random(0, 255))
-		console.log(randR);
+		// console.log(randR, randG, randB);
 		const material = new MeshToonMaterial({ color: new Color(`rgb(${randR}, ${randG}, ${randB})`) })
 		const donut = new Mesh(geometry, material)
 		donut.position.x = (Math.random() - .5) * 30;
-		donut.position.y = (Math.random() - .5) * 30;
+		donut.position.y = (Math.random() - .5) * 35;
 		donut.position.z = (Math.random() - .5) * 15;
 		donut.rotation.y = (Math.random() - .5) * Math.PI
 		donut.rotation.x = (Math.random() - .5) * Math.PI

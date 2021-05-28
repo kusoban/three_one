@@ -11,6 +11,6 @@ export function setPointLight (scene: Scene) {
 }
 
 export function setHemiLight (scene: Scene) {
-	const light = new HemisphereLight(0xffffbb, 0x080820, 1);
+	const light = new HemisphereLight('orange', 'red', 2);
 	scene.add(light)
 }
