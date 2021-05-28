@@ -1,5 +1,9 @@
-import { MeshMatcapMaterial } from 'three';
+import { MeshBasicMaterial, MeshMatcapMaterial, MeshStandardMaterial } from 'three';
 import { acid, orange, green } from './textures'
+
+export const standard = new MeshStandardMaterial({
+	color: 'yellow',
+})
 
 export const orangeMatcap = new MeshMatcapMaterial({
 	matcap: orange,
