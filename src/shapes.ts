@@ -94,9 +94,7 @@ function getToonMaterial () {
 }
 
 const standardMaterial = new MeshStandardMaterial({
-	roughness: 0,
-	metalness: 1,
-	envMap: envMap
+	color: 'grey'
 });
 
 export function makeCustom () {
@@ -136,9 +134,9 @@ export function makeSphere () {
 	return { mesh, geometry, material: standardMaterial };
 }
 
-export function makePlane () {
+export function makePlane (width: number, height: number) {
 	const material = standardMaterial
-	const geometry = new PlaneBufferGeometry(10, 10, 100, 100);
+	const geometry = new PlaneBufferGeometry(width, height);
 	const mesh = new Mesh(geometry, material);
 	const { uv } = geometry.attributes;
 	geometry.setAttribute('uv2', new BufferAttribute(uv.array, 2))
@@ -168,11 +166,12 @@ export const loadText = (text: string, size: number, material: Material): Promis
 			const bThickness = 0.03
 
 			const textGeometry = new TextBufferGeometry(text, {
+				
 				size: size,
-				height: .2,
+				height: 1,
 				font,
 				bevelThickness: .03,
-				bevelSize: .02,
+				bevelSize: .1,
 				bevelOffset: 0,
 				bevelSegments: 4,
 				bevelEnabled: true,
