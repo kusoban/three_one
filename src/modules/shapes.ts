@@ -1,6 +1,6 @@
 import { BoxGeometry, Mesh, TextureLoader, LoadingManager, MeshStandardMaterial, MirroredRepeatWrapping, NearestFilter, SphereBufferGeometry, PlaneBufferGeometry, TorusBufferGeometry, DoubleSide, MeshNormalMaterial, MeshMatcapMaterial, Vector2, MeshToonMaterial, BufferAttribute, CubeTextureLoader, Font, TextBufferGeometry, Material } from 'three'
 import { orangeMatcap } from './materials';
-import { getFont } from './text';
+import { getFont } from '../text';
 
 const loadingManager = new LoadingManager();
 loadingManager.onStart = (url) => console.log(url)
@@ -170,8 +170,8 @@ export const loadText = (text: string, size: number, material: Material): Promis
 				size: size,
 				height: 1,
 				font,
-				bevelThickness: .03,
-				bevelSize: .1,
+				bevelThickness: .01,
+				bevelSize: .06,
 				bevelOffset: 0,
 				bevelSegments: 4,
 				bevelEnabled: true,

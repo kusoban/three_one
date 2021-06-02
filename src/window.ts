@@ -1,4 +1,4 @@
-import {canvas} from './renderer'
+import {canvas} from './modules/renderer'
 
 interface webkitDocument extends Document {
 	webkitFullscreenElement: any;

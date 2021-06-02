@@ -20,6 +20,6 @@ export function getRectLight() {
 }
 
 export function getSpotLight() {
-	const light = new SpotLight(0x4e00ff, 5, 500, Math.PI / 11, 1.3, 1)
+	const light = new SpotLight(0x4e00ff, 4, 500, Math.PI / 11, 1.3, 1)
 	return light
 }

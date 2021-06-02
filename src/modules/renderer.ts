@@ -1,5 +1,5 @@
 import { PerspectiveCamera, WebGLRenderer } from 'three'
-import {camera} from './camera'
+import { camera } from './camera'
 
 interface WebkitCanvas extends HTMLCanvasElement {
 	webkitRequestFullScreen: any,
@@ -11,6 +11,7 @@ const renderer = new WebGLRenderer({
 	canvas
 })
 
+
 export const resize = () => {
 	size.update()
 	camera.aspect = size.getRatio();
@@ -18,6 +19,7 @@ export const resize = () => {
 	renderer.setSize(size.width, size.height);
 	renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 }
+
 export const size = {
 	update () {
 		this.width = window.innerWidth
@@ -25,7 +27,7 @@ export const size = {
 	},
 	width: window.innerWidth,
 	height: window.innerHeight,
-	getRatio() { return this.width / this.height },
+	getRatio () { return this.width / this.height },
 };
 
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
