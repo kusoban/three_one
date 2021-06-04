@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@types/three": "^0.128.0",
+    "cannon": "^0.6.2",
     "dat.gui": "^0.7.7",
     "gsap": "^3.5.1",
     "three": "^0.128.0"
