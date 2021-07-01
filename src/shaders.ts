@@ -4,7 +4,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'dat.gui'
 import vertexShader from './shaders/test/vertex.glsl'
 import fragmentShader from './shaders/test/fragment.glsl'
-import { Vector2 } from 'three'
+import { DoubleSide, Vector2 } from 'three'
 
 /**
  * Base
@@ -29,10 +29,11 @@ const textureLoader = new THREE.TextureLoader()
  * Test mesh
  */
 // Geometry
-const geometry = new THREE.PlaneBufferGeometry(5, 5, 150, 150)
+const geometry = new THREE.SphereBufferGeometry(25, 1550, 1550)
 
 // Material
 const material = new THREE.RawShaderMaterial({
+	side: THREE.DoubleSide,
 	vertexShader,
 	fragmentShader,
 	uniforms: {
@@ -99,6 +100,8 @@ const clock = new THREE.Clock()
 
 const tick = () => {
 	const elapsedTime = clock.getElapsedTime()
+
+	mesh.rotation.y += .1;
 
 	// Update controls
 	controls.update()
