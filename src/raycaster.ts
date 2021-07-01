@@ -21,35 +21,35 @@ const scene = new THREE.Scene()
  */
 const object0 = new THREE.Mesh(
 	new THREE.SphereBufferGeometry(0.5, 16, 16),
-	new MeshToonMaterial({color: 'blue'})
+	new MeshToonMaterial({ color: 'blue' })
 )
 object0.position.x = 1
 object0.userData.nextColor = new Color('cyan')
 
 const object1 = new THREE.Mesh(
 	new THREE.SphereBufferGeometry(0.5, 16, 16),
-	new MeshToonMaterial({color: 'blue'})
+	new MeshToonMaterial({ color: 'blue' })
 )
 object1.position.x = 3
 object1.userData.nextColor = new Color('violet')
 
 const object2 = new THREE.Mesh(
 	new THREE.SphereBufferGeometry(0.5, 16, 16),
-	new MeshToonMaterial({color: 'blue'})
+	new MeshToonMaterial({ color: 'blue' })
 )
 object2.position.x = 5
 object2.userData.nextColor = new Color('orange')
 
 const object3 = new THREE.Mesh(
 	new THREE.SphereBufferGeometry(0.5, 16, 16),
-	new MeshToonMaterial({color: 'blue'})
+	new MeshToonMaterial({ color: 'blue' })
 )
 object3.userData.nextColor = new Color('yellow')
 object3.position.x = 7
 
 const object4 = new THREE.Mesh(
 	new THREE.SphereBufferGeometry(0.5, 16, 16),
-	new MeshToonMaterial({color: 'blue'})
+	new MeshToonMaterial({ color: 'blue' })
 )
 object4.position.x = 9
 object4.userData.nextColor = new Color(0x01ff22);
@@ -97,11 +97,11 @@ window.addEventListener('mousemove', e => {
 })
 
 window.addEventListener('click', e => {
-	if(currIntersect) {
-		console.log(currIntersect.object);
-		
-		currIntersect.object.material.color = currIntersect.object.userData.nextColor
-		if(currIntersect.object.userData.material) currIntersect.object.material = currIntersect.object.userData.material
+	if (currIntersect) {
+		if (currIntersect.object instanceof THREE.Mesh) {
+			currIntersect.object.material;
+			currIntersect.object.material.color = currIntersect.object.userData.nextColor
+		}
 	}
 })
 

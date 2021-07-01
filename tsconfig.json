@@ -15,5 +15,6 @@
     "noImplicitReturns": true,
     "noImplicitThis": false,
   },
-  "include": ["./src"]
+  "include": ["./src"],
+  "files": ["src/shaders.d.ts"]
 }
