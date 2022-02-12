@@ -29,7 +29,7 @@ const textureLoader = new THREE.TextureLoader()
  * Test mesh
  */
 // Geometry
-const geometry = new THREE.SphereBufferGeometry(25, 1550, 1550)
+const geometry = new THREE.SphereBufferGeometry(10, 1550, 1550)
 
 // Material
 const material = new THREE.RawShaderMaterial({

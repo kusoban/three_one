@@ -9,7 +9,7 @@ varying float distance;
 void main() 
 {
 	vec4 modelPosition = modelMatrix * vec4(position, 1.0);
-	modelPosition.z  = sin(modelPosition.x * uFrequency.x + uTime) * .5;
+	modelPosition.z  = sin(modelPosition.x * uTime) * .5;
 	modelPosition.x  += sin(modelPosition.y * uFrequency.y + uTime);
 	modelPosition.z  += sin(modelPosition.y * uFrequency.y + uTime) * .5;
 

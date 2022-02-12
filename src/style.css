@@ -9,6 +9,9 @@ body {
   outline: none;
 }
 .heading {
+  z-index: -2;
+  pointer-events: unset;
+  user-select: none;
   display: flex;
   align-items: center;
   justify-content: center;
